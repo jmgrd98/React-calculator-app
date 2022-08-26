@@ -4,9 +4,16 @@ import './App.css'
 
 function App() {
   const [screenValue, setScreenValue] = useState<string>('')
-  const [screenResult, setScreenResult] = useState<number>(0)
+  const [screenResult, setScreenResult] = useState<string>('')
   const [operation, setOperation] = useState<boolean>(false)
 
+  const doOperation = (newOperation:string) =>{
+    if(newOperation === 'bs'){
+      let substringScreenValue = screenValue;
+      screenValue = 
+    }
+  }
+  
   function cleanScreen(){
     setScreenValue('')
     setScreenResult('0')
@@ -19,15 +26,15 @@ function App() {
     if((digit === '+' || digit === '-' || digit === 'x' || digit === '/')
     && operation){
       setOperation(false)
-      setScreenValue(prevstate => prevstate+digit.toString())
+      setScreenValue(prevValue => prevValue+digit.toString())
     }
     if(operation){
       setOperation(false)
       setScreenValue(digit.toString())
       return
     }
-    setScreenValue(prevstate => prevstate+digit.toString())
-    setScreenResult(digit.toString())
+    setScreenValue(prevValue => prevValue+digit.toString())
+    setScreenResult(prevDigit => prevDigit+digit.toString())
   }
 
   return (
