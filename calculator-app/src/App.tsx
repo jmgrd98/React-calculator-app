@@ -1,20 +1,34 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
+import Button from './components/Button'
 
 function App() {
   const [screenValue, setScreenValue] = useState<string>('')
-  const [screenResult, setScreenResult] = useState<string>('')
+  const [screenResult, setScreenResult] = useState<string | number>('')
   const [operation, setOperation] = useState<boolean>(false)
 
-  const doOperation = (newOperation:string) =>{
-    if(newOperation === 'bs'){
-      let substringScreenValue = screenValue;
-      screenValue = 
+  const doOperation = (newOperation:string) => {
+    if(newOperation === 'M'){
+      let substringScreenValue:string = screenValue;
+      substringScreenValue = substringScreenValue.substring(0, substringScreenValue.length -1)
+
+      setOperation(false)
+      setScreenValue(substringScreenValue)
+
+    }
+
+    try{
+      const res = eval(screenValue)
+      setScreenResult(res)
+      setOperation(true)
+    }
+    catch(error){
+      setScreenResult('Error!')
     }
   }
   
   function cleanScreen(){
+    setOperation(false)
     setScreenValue('')
     setScreenResult('0')
   }
@@ -26,7 +40,9 @@ function App() {
     if((digit === '+' || digit === '-' || digit === 'x' || digit === '/')
     && operation){
       setOperation(false)
-      setScreenValue(prevValue => prevValue+digit.toString())
+      setScreenValue(prevScreenValue => prevScreenValue+digit)
+      setScreenResult(Number(digit))
+      return
     }
     if(operation){
       setOperation(false)
@@ -51,32 +67,32 @@ function App() {
           </div>
           <table>
             <tr>
-              <td><button onClick={cleanScreen}>C</button></td>
-              <td><button>M</button></td>
-              <td><button onClick={() => addDigitScreen('/')}>/</button></td>
-              <td><button onClick={() => addDigitScreen('*')}>X</button></td>
+              <td><Button onClick={cleanScreen} buttonDigit={'C'}></Button></td>
+              <td><Button onClick={doOperation} buttonDigit={'M'}></Button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'/'}></Button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'*'}></Button></td>
             </tr>
             <tr>
-              <td><button onClick={() => addDigitScreen('7')}>7</button></td>
-              <td><button onClick={() => addDigitScreen('8')}>8</button></td>
-              <td><button onClick={() => addDigitScreen('9')}>9</button></td>
-              <td><button onClick={() => addDigitScreen('-')}>-</button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'7'}></Button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'8'}></Button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'9'}></Button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'-'}></Button></td>
             </tr>
             <tr>
-              <td><button onClick={() => addDigitScreen('4')}>4</button></td>
-              <td><button onClick={() => addDigitScreen('5')}>5</button></td>
-              <td><button onClick={() => addDigitScreen('6')}>6</button></td>
-              <td><button onClick={() => addDigitScreen('+')}>+</button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'4'}></Button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'5'}></Button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'6'}></Button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'+'}></Button></td>
             </tr>
             <tr>
-              <td><button onClick={() => addDigitScreen('1')}>1</button></td>
-              <td><button onClick={() => addDigitScreen('2')}>2</button></td>
-              <td><button onClick={() => addDigitScreen('3')}>3</button></td>
-              <td rowSpan={2}><button id="equal">=</button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'1'}></Button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'2'}></Button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'3'}></Button></td>
+              <td rowSpan={2}><Button onClick={doOperation} buttonDigit={'='}></Button></td>
             </tr>
             <tr>
-              <td colSpan={2}><button id="zero" onClick={() => addDigitScreen('0')}>0</button></td>
-              <td ><button onClick={() => addDigitScreen('.')}>.</button></td>
+              <td colSpan={2}><Button onClick={addDigitScreen}  buttonDigit={'0'}></Button></td>
+              <td ><button className="calc-button">.</button></td>
             </tr>
           </table>
         </main>
