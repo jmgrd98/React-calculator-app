@@ -88,11 +88,11 @@ function App() {
               <td><Button onClick={addDigitScreen} buttonDigit={'1'}></Button></td>
               <td><Button onClick={addDigitScreen} buttonDigit={'2'}></Button></td>
               <td><Button onClick={addDigitScreen} buttonDigit={'3'}></Button></td>
-              <td rowSpan={2}><Button onClick={doOperation} buttonDigit={'='}></Button></td>
+              <td rowSpan={2}><Button onClick={doOperation} buttonDigit={'='} className="equals"></Button></td>
             </tr>
             <tr>
-              <td colSpan={2}><Button onClick={addDigitScreen}  buttonDigit={'0'}></Button></td>
-              <td ><button className="calc-button">.</button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'0'} className="zero"></Button></td>
+              <td><Button onClick={addDigitScreen} buttonDigit={'.'}></Button></td>
             </tr>
           </table>
         </main>

@@ -1,6 +1,7 @@
 interface IButton{
     onClick: (buttonDigit: any) => void
     buttonDigit: string
+    className?: string
 }
 
 const Button = ({onClick, buttonDigit}:IButton) => {

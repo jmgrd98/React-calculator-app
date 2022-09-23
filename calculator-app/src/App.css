@@ -43,10 +43,10 @@ button{
   height: 100%;
 }
 
-#equal{
+.equals{
   height: 100px;
 }
 
-#zero{
-  width: 115px;
+.zero{
+  width: 100%;
 }
